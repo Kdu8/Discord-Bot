@@ -1,5 +1,6 @@
 const { Client, Events, GatewayIntentBits } = require("discord.js");
 const Notification = require("./lib/notification");
+const db = require("./lib/db");
 const { token } = require("../config.json");
 
 const client = new Client({
