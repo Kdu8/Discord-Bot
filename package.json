@@ -1,0 +1,22 @@
+{
+    "name": "discord-bot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "bot.js",
+    "scripts": {
+        "bot": "node src/bot.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Kdu8/Discord-Bot.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Kdu8/Discord-Bot/issues"
+    },
+    "homepage": "https://github.com/Kdu8/Discord-Bot#readme",
+    "dependencies": {
+        "discord.js": "^14.7.1"
+    }
+}
