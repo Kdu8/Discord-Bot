@@ -40,15 +40,26 @@ function createCollector(channel) {
     collector.on("collect", (collected) => {
         const user = collected.user;
         const option = collected.customId;
-
-        if (option === NotifyOption.Allow) {
-            user.send("you allowed");
-        } 
-        else if (option === NotifyOption.Deny) {
-            user.send("you denied");
-        }
+        sendStateMessage(user, option);
 
         collected.deferUpdate();
+    });
+}
+
+function sendStateMessage(user, option) {
+    const embed = new EmbedBuilder().setColor(0x0099ff);
+    let title;
+    switch (option) {
+        case NotifyOption.Allow:
+            tilte = "게시글 알림을 허용하셨습니다!";
+            break;
+        case NotifyOption.Deny:
+            title = "게시글 알림을 거부하셨습니다!";
+            break;
+    }
+    embed.setTitle(title);
+    user.send({
+        embeds: [embed],
     });
 }
 

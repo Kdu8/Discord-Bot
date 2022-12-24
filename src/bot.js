@@ -15,5 +15,5 @@ client.once(Events.ClientReady, (c) => {
 
     channel.send(Notification.message);
 });
-// Log in to Discord with your client's token
+
 client.login(token);
