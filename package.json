@@ -17,6 +17,8 @@
     "homepage": "https://github.com/Kdu8/Discord-Bot#readme",
     "dependencies": {
         "discord.js": "^14.7.1",
-        "mysql": "^2.18.1"
+        "mysql": "^2.18.1",
+        "sockjs-client": "^1.6.1",
+        "stompjs": "^2.3.3"
     }
 }

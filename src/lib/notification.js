@@ -5,6 +5,7 @@ const {
     EmbedBuilder,
     ComponentType,
 } = require("discord.js");
+const db = require("./db");
 
 const NotifyOption = {
     Allow: "allow",
@@ -40,6 +41,8 @@ function createCollector(channel) {
     collector.on("collect", (collected) => {
         const user = collected.user;
         const option = collected.customId;
+
+        // db.setAllowNotifyByUserId(user.id, option === NotifyOption.Allow);
         sendStateMessage(user, option);
 
         collected.deferUpdate();
@@ -49,6 +52,7 @@ function createCollector(channel) {
 function sendStateMessage(user, option) {
     const embed = new EmbedBuilder().setColor(0x0099ff);
     let title;
+
     switch (option) {
         case NotifyOption.Allow:
             title = "게시글 알림을 허용하셨습니다!";
@@ -57,6 +61,7 @@ function sendStateMessage(user, option) {
             title = "게시글 알림을 거부하셨습니다!";
             break;
     }
+
     embed.setTitle(title);
     user.send({
         embeds: [embed],

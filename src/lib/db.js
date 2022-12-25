@@ -26,10 +26,10 @@ db.getUserIdByName = (name) => {
     );
 };
 
-db.getAllowNotifyById = (id) => {
+db.getAllowNotifyByUserId = (userId) => {
     return db.query(
         `SELECT ${DB.ALLOW_NOTIFY} FROM ${DB.DB_NAME} WHERE ${DB.USER_ID} = ?`,
-        [id],
+        [userId],
         (err, result) => {
             if (err) throw err;
             return result[0];
@@ -37,7 +37,7 @@ db.getAllowNotifyById = (id) => {
     );
 };
 
-db.setAcceptNotifyByUserId = (userId, isAccept) => {
+db.setAllowNotifyByUserId = (userId, isAccept) => {
     db.query(
         `UPDATE ${DB.DB_NAME} SET ${DB.ALLOW_NOTIFY} = ? WHERE ${DB.USER_ID} = ?`,
         [parseInt(isAccept), userId],

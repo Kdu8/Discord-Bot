@@ -18,4 +18,15 @@ client.once(Events.ClientReady, (c) => {
 
 });
 
+client.on("guildMemberAdd", (member) => {
+    console.log(member);
+    console.log(member.nickname);
+    console.log(member.displayName);
+    // db.insertUser(member.id, member.nickname);
+});
+
+client.on("guildMemberRemove", (member) => {
+    
+});
+
 client.login(token);
