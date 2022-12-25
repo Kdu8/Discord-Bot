@@ -15,6 +15,7 @@ client.once(Events.ClientReady, (c) => {
     Notification.createCollector(channel);
 
     channel.send(Notification.message);
+
 });
 
 client.login(token);

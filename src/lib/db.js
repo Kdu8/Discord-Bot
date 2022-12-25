@@ -1,19 +1,35 @@
 const mysql = require("mysql");
 const { password } = require("../../config.json");
 
-const DB_NAME = "discord_user";
+const DB = {
+    DB_NAME: "discord_user",
+    USER_ID: "user_id",
+    USER_NAME: "user_name",
+    ALLOW_NOTIFY: "allow_notify",
+};
 
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: password,
-    database: DB_NAME,
+    database: DB.DB_NAME,
 });
 
 db.getUserIdByName = (name) => {
     return db.query(
-        `SELECT user_id FROM ${DB_NAME} WHERE user_name = ?`,
+        `SELECT ${DB.USER_ID} FROM ${DB.DB_NAME} WHERE ${DB.USER_NAME} = ?`,
         [name],
+        (err, result) => {
+            if (err) throw err;
+            return result[0];
+        }
+    );
+};
+
+db.getAllowNotifyById = (id) => {
+    return db.query(
+        `SELECT ${DB.ALLOW_NOTIFY} FROM ${DB.DB_NAME} WHERE ${DB.USER_ID} = ?`,
+        [id],
         (err, result) => {
             if (err) throw err;
             return result[0];
@@ -23,8 +39,18 @@ db.getUserIdByName = (name) => {
 
 db.setAcceptNotifyByUserId = (userId, isAccept) => {
     db.query(
-        `UPDATE ${DB_NAME} SET accept_notify = ? WHERE user_id = ?`,
+        `UPDATE ${DB.DB_NAME} SET ${DB.ALLOW_NOTIFY} = ? WHERE ${DB.USER_ID} = ?`,
         [parseInt(isAccept), userId],
+        (err) => {
+            if (err) throw err;
+        }
+    );
+};
+
+db.insertUser = (userId, userName) => {
+    db.query(
+        `INSERT INTO ${DB.DB_NAME}(${DB.USER_ID}, ${DB.USER_NAME}) VALUES (?,?)`,
+        [userId, userName],
         (err) => {
             if (err) throw err;
         }

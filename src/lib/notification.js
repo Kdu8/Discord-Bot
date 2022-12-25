@@ -51,7 +51,7 @@ function sendStateMessage(user, option) {
     let title;
     switch (option) {
         case NotifyOption.Allow:
-            tilte = "게시글 알림을 허용하셨습니다!";
+            title = "게시글 알림을 허용하셨습니다!";
             break;
         case NotifyOption.Deny:
             title = "게시글 알림을 거부하셨습니다!";
