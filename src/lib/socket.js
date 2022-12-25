@@ -11,6 +11,5 @@ stompClient.connect({}, (frame) => {
     stompClient.subscribe("/discord", (message) => {
         console.log(message);
     });
-
 });
 

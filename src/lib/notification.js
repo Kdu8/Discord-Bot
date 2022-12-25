@@ -43,9 +43,9 @@ function createCollector(channel) {
         const option = collected.customId;
 
         // db.setAllowNotifyByUserId(user.id, option === NotifyOption.Allow);
+        collected.deferUpdate();
         sendStateMessage(user, option);
 
-        collected.deferUpdate();
     });
 }
 
