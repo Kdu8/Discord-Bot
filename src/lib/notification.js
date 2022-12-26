@@ -42,7 +42,7 @@ function createCollector(channel) {
         const user = collected.user;
         const option = collected.customId;
 
-        // db.setAllowNotifyByUserId(user.id, option === NotifyOption.Allow);
+        db.setAllowNotifyByUserId(user.id, option === NotifyOption.Allow);
         collected.deferUpdate();
         sendStateMessage(user, option);
 

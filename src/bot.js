@@ -1,9 +1,4 @@
-const {
-    Client,
-    Events,
-    GatewayIntentBits,
-    GatewayDispatchEvents,
-} = require("discord.js");
+const { Client, Events, GatewayIntentBits } = require("discord.js");
 const Notification = require("./lib/notification");
 const db = require("./lib/db");
 const { token } = require("../config.json");
@@ -11,10 +6,9 @@ const { token } = require("../config.json");
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.DirectMessages,
         GatewayIntentBits.GuildMembers,
-        GatewayDispatchEvents.GuildMemberAdd,
-        GatewayDispatchEvents.GuildMemberRemove
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.DirectMessages,
     ],
 });
 
@@ -23,22 +17,17 @@ client.once(Events.ClientReady, (c) => {
 
     const guild = client.guilds.cache.get("1056072258449326151");
     const channel = guild.channels.cache.get("1056072258998775851");
-    Notification.createCollector(channel);
 
+    Notification.createCollector(channel);
     channel.send(Notification.message);
 });
 
-client.on("guildMemberAdd", (member) => {
-    console.log(member);
-    console.log(member.nickname);
-    console.log(member.displayName);
-    // db.insertUser(member.id, member.nickname);
+client.on(Events.GuildMemberAdd, async (member) => {
+    db.insertUser(member.user.id, member.user.tag);
 });
 
-client.on("guildMemberRemove", (member) => {
-    console.log(member);
-    console.log(member.nickname);
-    console.log(member.displayName);
+client.on(Events.GuildMemberRemove, async (member) => {
+    db.deleteUser(member.user.id);
 });
 
 client.login(token);

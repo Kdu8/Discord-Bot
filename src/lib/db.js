@@ -57,5 +57,11 @@ db.insertUser = (userId, userName) => {
     );
 };
 
+db.deleteUser = (userId) => {
+    db.query(`DELETE FROM ${DB.DB_NAME} WHERE ${DB.USER_ID} = ?`, [userId], (err) => {
+        if (err) throw err;
+    });
+};
+
 db.connect();
 module.exports = db;
