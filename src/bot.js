@@ -8,7 +8,7 @@ const {
     token,
     server_id,
     allow_notify_channel_id,
-    notificationChannel_id,
+    notification_channel_id,
 } = require("../config.json");
 
 const client = new Client({
@@ -25,7 +25,7 @@ client.once(Events.ClientReady, (c) => {
 
     const guild = client.guilds.cache.get(server_id);
     const allowNotifyChannel = guild.channels.cache.get(allow_notify_channel_id);
-    const notificationChannel = guild.channels.cache.get(notificationChannel_id);
+    const notificationChannel = guild.channels.cache.get(notification_channel_id);
 
     Notification.createCollector(allowNotifyChannel);
     allowNotifyChannel.send(Notification.message);
