@@ -5,7 +5,7 @@ const DB = {
     DB_NAME: "discord_user",
     USER_ID: "user_id",
     USER_NAME: "user_name",
-    ALLOW_NOTIFY: "allow_notify",
+    ALLOW_NOTIFY: "accept_notify",
 };
 
 const db = mysql.createConnection({
@@ -15,24 +15,24 @@ const db = mysql.createConnection({
     database: DB.DB_NAME,
 });
 
-db.getUserIdByName = (name) => {
-    return db.query(
+db.getUserIdByName = (name, callback) => {
+    db.query(
         `SELECT ${DB.USER_ID} FROM ${DB.DB_NAME} WHERE ${DB.USER_NAME} = ?`,
         [name],
         (err, result) => {
             if (err) throw err;
-            return result[0];
+            callback(result[0]);
         }
     );
 };
 
-db.getAllowNotifyByUserId = (userId) => {
-    return db.query(
+db.getAllowNotifyByUserId = (userId, callback) => {
+    db.query(
         `SELECT ${DB.ALLOW_NOTIFY} FROM ${DB.DB_NAME} WHERE ${DB.USER_ID} = ?`,
         [userId],
         (err, result) => {
             if (err) throw err;
-            return result[0];
+            callback(result[0]);
         }
     );
 };
@@ -40,7 +40,7 @@ db.getAllowNotifyByUserId = (userId) => {
 db.setAllowNotifyByUserId = (userId, isAccept) => {
     db.query(
         `UPDATE ${DB.DB_NAME} SET ${DB.ALLOW_NOTIFY} = ? WHERE ${DB.USER_ID} = ?`,
-        [parseInt(isAccept), userId],
+        [isAccept, userId],
         (err) => {
             if (err) throw err;
         }
