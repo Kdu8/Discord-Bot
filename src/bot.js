@@ -1,10 +1,15 @@
-const { Client, Events, GatewayIntentBits } = require("discord.js");
+const { Client, Events, GatewayIntentBits, ChannelType } = require("discord.js");
 const Notification = require("./lib/allow-notify");
 const db = require("./lib/db");
 NotificationQueue = [];
 DMQueue = [];
 const socketClient = require("./lib/socket");
-const { token, server_id, channel_id } = require("../config.json");
+const {
+    token,
+    server_id,
+    allow_notify_channel_id,
+    notificationChannel_id,
+} = require("../config.json");
 
 const client = new Client({
     intents: [
@@ -19,14 +24,15 @@ client.once(Events.ClientReady, (c) => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
 
     const guild = client.guilds.cache.get(server_id);
-    const channel = guild.channels.cache.get(channel_id);
+    const allowNotifyChannel = guild.channels.cache.get(allow_notify_channel_id);
+    const notificationChannel = guild.channels.cache.get(notificationChannel_id);
 
-    Notification.createCollector(channel);
-    channel.send(Notification.message);
+    Notification.createCollector(allowNotifyChannel);
+    allowNotifyChannel.send(Notification.message);
 
     setInterval(() => {
         NotificationQueue.forEach((embed) => {
-            channel.send({ embeds: [embed] });
+            notificationChannel.send({ embeds: [embed] });
             NotificationQueue.shift();
         });
         DMQueue.forEach((data) => {

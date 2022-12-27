@@ -2,9 +2,7 @@ const SockJs = require("sockjs-client");
 const Stomp = require("stompjs");
 const { createNotifyDMEmbed, createNotificationEmbed } = require("./board-notification");
 
-const socket = new SockJs(
-    "http://ec2-52-79-236-28.ap-northeast-2.compute.amazonaws.com/stomp"
-);
+const socket = new SockJs("http://localhost:8080/stomp");
 const stompClient = Stomp.over(socket);
 
 stompClient.connect({}, () => {
@@ -13,7 +11,7 @@ stompClient.connect({}, () => {
         const embed = createNotifyDMEmbed(json.Board, json.isApply);
         DMQueue.push({
             embed: embed,
-            discord: json.discord
+            discord: json.discord,
         });
     });
 
