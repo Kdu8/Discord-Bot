@@ -49,7 +49,7 @@ client.once(Events.ClientReady, (c) => {
             });
             DMQueue.shift();
         });
-    }, 100);
+    }, 1000);
 });
 
 client.on(Events.GuildMemberAdd, async (member) => {
