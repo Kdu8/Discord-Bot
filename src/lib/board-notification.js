@@ -42,8 +42,8 @@ module.exports = {
 };
 
 function getFullDate(date) {
-    return `${date.getFullYear()}-${makeItStr(date.getMonth() + 1)}-${makeItStr(
-        date.getDate() + 1
+    return `${date.getFullYear()}-${makeItStr(date.getMonth())}-${makeItStr(
+        date.getDate()
     )}`;
 }
 
