@@ -17,6 +17,7 @@ stompClient.connect({}, () => {
 
     stompClient.subscribe("/queue/board", (message) => {
         const json = JSON.parse(message.body);
+        console.log(json);
         const embed = createNotificationEmbed(json);
         NotificationQueue.push(embed);
     });
