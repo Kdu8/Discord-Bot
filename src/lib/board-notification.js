@@ -6,8 +6,10 @@ module.exports = {
         const date = getFullDate(exDate);
         const time = getFullTime(exDate);
 
-        return new EmbedBuilder().setColor(0x0099ff).setTitle("새 게시글이 올라왔습니다!")
-            .setDescription(`
+        return new EmbedBuilder()
+            .setColor(0x0099ff)
+            .setTitle("새 게시글이 올라왔습니다!")
+            .setURL("https://mo-zip.online/board/" + json.id).setDescription(`
             
             제목 :  **${json.title}**
 
